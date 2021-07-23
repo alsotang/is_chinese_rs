@@ -8,3 +8,10 @@ repository = "https://github.com/alsotang/is_chinese_rs"
 license = "MIT"
 
 [dependencies]
+
+[dev-dependencies]
+criterion = "0.3"
+
+[[bench]]
+name = "my_benchmark"
+harness = false
