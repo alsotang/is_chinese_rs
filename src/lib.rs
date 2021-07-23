@@ -1,3 +1,5 @@
+//! detect whether a string is all Chinese
+
 const CHINESE_RANGE: &[[u32; 2]] = &[
     // sequence is determine by occurrence probability
     [0x4e00, 0x9fff], // CJK Unified Ideographs
@@ -37,6 +39,10 @@ const CHINESE_RANGE: &[[u32; 2]] = &[
     [0x2f800, 0x2fa1f], // https://en.wikipedia.org/wiki/CJK_Compatibility_Ideographs_Supplement
 ];
 
+///
+/// ```
+/// assert!(is_chinese::is_chinese("中国"));
+/// ```
 pub fn is_chinese(str: &str) -> bool {
     let has_ascii = str.chars().any(|c| c as u32 <= 255);
 
