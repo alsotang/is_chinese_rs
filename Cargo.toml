@@ -2,7 +2,9 @@
 name = "is_chinese"
 version = "1.0.0"
 edition = "2018"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+authors = ["alsotang <alsotang@gmail.com>"]
+description = "detect whether a string is all Chinese"
+repository = "https://github.com/alsotang/is_chinese_rs"
+license = "MIT"
 
 [dependencies]
