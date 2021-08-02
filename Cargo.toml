@@ -8,6 +8,7 @@ repository = "https://github.com/alsotang/is_chinese_rs"
 license = "MIT"
 
 [dependencies]
+packed_simd = { version = "0.3.4", package = "packed_simd_2" }
 
 [dev-dependencies]
 criterion = "0.3"
