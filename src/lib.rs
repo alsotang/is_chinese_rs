@@ -43,7 +43,6 @@ const CHINESE_RANGE: &[[u32; 2]] = &[
     [0x2a700, 0x2b73f], // CJK Unified Ideographs Extension C
     [0x2b740, 0x2b81f], // CJK Unified Ideographs Extension D
     [0x2b820, 0x2ceaf], // CJK Unified Ideographs Extension E
-    [0xf900, 0xfaff],   // CJK Compatibility Ideographs
     [0x3300, 0x33ff],   // https://en.wikipedia.org/wiki/CJK_Compatibility
     [0xfe30, 0xfe4f],   // https://en.wikipedia.org/wiki/CJK_Compatibility_Forms
     [0xf900, 0xfaff],   // https://en.wikipedia.org/wiki/CJK_Compatibility_Ideographs
