@@ -54,7 +54,7 @@ const CHINESE_RANGE: &[[u32; 2]] = &[
 /// assert!(is_chinese::is_chinese("中国"));
 /// ```
 pub fn is_chinese(str: &str) -> bool {
-    let has_ascii = str.chars().any(|c| c as u32 <= 255);
+    let has_ascii = str.chars().any(|c| c.is_ascii());
 
     if has_ascii {
         return false;
