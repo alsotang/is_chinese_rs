@@ -10,44 +10,9 @@
 //! assert!(!is_chinese::is_chinese("ss"));
 //! ```
 //!
-
-const CHINESE_RANGE: &[[u32; 2]] = &[
-    // sequence is determine by occurrence probability
-    [0x4e00, 0x9fff], // CJK Unified Ideographs
-    // Chinese punctuation
-    [0xff0c, 0xff0c],   //，
-    [0x3002, 0x3002],   //。
-    [0x00b7, 0x00b7],   //·
-    [0x00d7, 0x00d7],   //×
-    [0x2014, 0x2014],   //—
-    [0x2018, 0x2018],   //‘
-    [0x2019, 0x2019],   //’
-    [0x201c, 0x201c],   //“
-    [0x201d, 0x201d],   //”
-    [0x2026, 0x2026],   //…
-    [0x3001, 0x3001],   //、
-    [0x300a, 0x300a],   //《
-    [0x300b, 0x300b],   //》
-    [0x300e, 0x300e],   //『
-    [0x300f, 0x300f],   //』
-    [0x3010, 0x3010],   //【
-    [0x3011, 0x3011],   //】
-    [0xff01, 0xff01],   //！
-    [0xff08, 0xff08],   //（
-    [0xff09, 0xff09],   //）
-    [0xff1a, 0xff1a],   //：
-    [0xff1b, 0xff1b],   //；
-    [0xff1f, 0xff1f],   //？
-    [0x3400, 0x4dbf],   // CJK Unified Ideographs Extension A
-    [0x20000, 0x2a6df], // CJK Unified Ideographs Extension B
-    [0x2a700, 0x2b73f], // CJK Unified Ideographs Extension C
-    [0x2b740, 0x2b81f], // CJK Unified Ideographs Extension D
-    [0x2b820, 0x2ceaf], // CJK Unified Ideographs Extension E
-    [0x3300, 0x33ff],   // https://en.wikipedia.org/wiki/CJK_Compatibility
-    [0xfe30, 0xfe4f],   // https://en.wikipedia.org/wiki/CJK_Compatibility_Forms
-    [0xf900, 0xfaff],   // https://en.wikipedia.org/wiki/CJK_Compatibility_Ideographs
-    [0x2f800, 0x2fa1f], // https://en.wikipedia.org/wiki/CJK_Compatibility_Ideographs_Supplement
-];
+//!
+//!
+//!
 
 ///
 /// ```
@@ -61,9 +26,45 @@ pub fn is_chinese(str: &str) -> bool {
     }
 
     let is_all_chinese = str.chars().all(|c| {
-        CHINESE_RANGE
-            .iter()
-            .any(|&[start, end]| c as u32 >= start && c as u32 <= end)
+        match c as u32 {
+            0x4e00..=0x9fff => return true,
+            0xff0c..=0xff0c => {
+                return true;
+            }
+            0x3002 => {
+                return true;
+            }
+            0x3400..=0x4dbf => return true, // CJK Unified Ideographs Extension A
+            0x20000..=0x2a6df => return true, // CJK Unified Ideographs Extension B
+            0x2a700..=0x2b73f => return true, // CJK Unified Ideographs Extension C
+            0x2b740..=0x2b81f => return true, // CJK Unified Ideographs Extension D
+            0x2b820..=0x2ceaf => return true, // CJK Unified Ideographs Extension E
+            0x3300..=0x33ff => return true, // https://en.wikipedia.org/wiki/CJK_Compatibility
+            0xfe30..=0xfe4f => return true, // https://en.wikipedia.org/wiki/CJK_Compatibility_Forms
+            0xf900..=0xfaff => return true, // https://en.wikipedia.org/wiki/CJK_Compatibility_Ideographs
+            0x2f800..=0x2fa1f => return true, // https://en.wikipedia.org/wiki/CJK_Compatibility_Ideographs_Supplement
+            0x00b7 => return true,            //·
+            0x00d7 => return true,            //×
+            0x2014 => return true,            //—
+            0x2018 => return true,            //‘
+            0x2019 => return true,            //’
+            0x201c => return true,            //“
+            0x201d => return true,            //”
+            0x2026 => return true,            //…
+            0x3001 => return true,            //、
+            0x300a => return true,            //《
+            0x300b => return true,            //》
+            0x300e => return true,            //『
+            0x300f => return true,            //』
+            0x3010 => return true,            //【
+            0x3011 => return true,            //】
+            0xff01 => return true,            //！
+            0xff08 => return true,            //（
+            0xff09 => return true,            //）
+            0xff1a => return true,            //：
+            0xff1f => return true,            //？
+            _ => false,
+        }
     });
 
     is_all_chinese
