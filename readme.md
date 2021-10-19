@@ -1,5 +1,7 @@
 # is_chinese
 
+[![crates.io](https://img.shields.io/crates/v/is_chinese.svg)](https://crates.io/crates/is_chinese)
+
 detect whether a string is all Chinese
 
 ## example
