@@ -8,7 +8,6 @@ repository = "https://github.com/alsotang/is_chinese_rs"
 license = "MIT"
 
 [dependencies]
-
 [dev-dependencies]
 criterion = "0.3"
 

@@ -19,16 +19,15 @@
 /// assert!(is_chinese::is_chinese("中国"));
 /// ```
 pub fn is_chinese(str: &str) -> bool {
-    let has_ascii = str.chars().any(|c| c.is_ascii());
-
-    if has_ascii {
-        return false;
-    }
+    // let has_ascii = str.chars().any(|c| c.is_ascii());
+    // if has_ascii {
+    //     return false;
+    // }
 
     let is_all_chinese = str.chars().all(|c| {
         match c as u32 {
             0x4e00..=0x9fff => return true,
-            0xff0c..=0xff0c => {
+            0xff0c => {
                 return true;
             }
             0x3002 => {
