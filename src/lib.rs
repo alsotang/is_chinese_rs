@@ -51,6 +51,7 @@ fn has_printable_ascii_in_rest_slice(bytes: &[u8], string: &str) -> bool {
     #[cfg(target_feature = "avx2")]
     let lane = 32;
     #[cfg(target_feature = "sse2")]
+    #[cfg(not(target_feature = "avx2"))]
     let lane = 16;
     #[cfg(not(target_feature = "sse2"))]
     let lane = 0;
@@ -83,7 +84,6 @@ fn has_printable_ascii_in_rest_slice(bytes: &[u8], string: &str) -> bool {
     }
     #[cfg(not(target_feature = "sse2"))]
     bytes[string.len() - reminder..].iter().any(|ch| *ch <= 127)
-    
 }
 
 #[target_feature(enable = "sse2")]
