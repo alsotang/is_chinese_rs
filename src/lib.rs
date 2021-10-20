@@ -19,15 +19,27 @@
 /// assert!(is_chinese::is_chinese("中国"));
 /// ```
 pub fn is_chinese(string: &str) -> bool {
-    let has_ascii = is_printable_ascii(string);
+    let has_ascii = is_printable_ascii(string.as_bytes());
     if has_ascii {
         return false;
     }
     string.chars().all(is_chinese_char)
 }
 
-fn is_printable_ascii(string: &str) -> bool {
-    let bytes = string.as_bytes();
+// user should guarantee &[u8] is valid utf-8 string
+pub fn is_chinese_buffer(bytes: &[u8]) -> bool {
+    let has_ascii = is_printable_ascii(bytes);
+    if has_ascii {
+        return false;
+    }
+    unsafe {
+        std::str::from_utf8_unchecked(bytes)
+            .chars()
+            .all(is_chinese_char)
+    }
+}
+
+fn is_printable_ascii(bytes: &[u8]) -> bool {
     (unsafe {
         #[cfg(target_feature = "avx2")]
         {
@@ -42,10 +54,10 @@ fn is_printable_ascii(string: &str) -> bool {
         {
             is_printable_ascii_fallback(bytes)
         }
-    }) || has_printable_ascii_in_rest_slice(bytes, string)
+    }) || has_printable_ascii_in_rest_slice(bytes)
 }
 
-fn has_printable_ascii_in_rest_slice(bytes: &[u8], string: &str) -> bool {
+fn has_printable_ascii_in_rest_slice(bytes: &[u8]) -> bool {
     use packed_simd::{u8x16, u8x4, u8x8};
 
     #[cfg(target_feature = "avx2")]
@@ -69,7 +81,7 @@ fn has_printable_ascii_in_rest_slice(bytes: &[u8], string: &str) -> bool {
         4 => u8x4::from_slice_unaligned(&bytes[bytes.len() - 8..])
             .le(u8x4::splat(127))
             .any(),
-        _ => bytes[string.len() - reminder..].iter().any(|ch| *ch <= 127),
+        _ => bytes[bytes.len() - reminder..].iter().any(|ch| *ch <= 127),
     }
     #[cfg(target_feature = "sse2")]
     #[cfg(not(target_feature = "avx2"))]
@@ -77,13 +89,13 @@ fn has_printable_ascii_in_rest_slice(bytes: &[u8], string: &str) -> bool {
         8 => u8x8::from_slice_unaligned(&bytes[bytes.len() - 8..])
             .le(u8x8::splat(127))
             .any(),
-        4 => u8x4::from_slice_unaligned(&bytes[bytes.len() - 8..])
+        4 => u8x4::from_slice_unaligned(&bytes[bytes.len() - 4..])
             .le(u8x4::splat(127))
             .any(),
-        _ => bytes[string.len() - reminder..].iter().any(|ch| *ch <= 127),
+        _ => bytes[bytes.len() - reminder..].iter().any(|ch| *ch <= 127),
     }
     #[cfg(not(target_feature = "sse2"))]
-    bytes[string.len() - reminder..].iter().any(|ch| *ch <= 127)
+    bytes[bytes.len() - reminder..].iter().any(|ch| *ch <= 127)
 }
 
 #[target_feature(enable = "sse2")]
