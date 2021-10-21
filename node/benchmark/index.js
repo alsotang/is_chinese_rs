@@ -36,45 +36,45 @@ suite
   })
   .run();
 
-// const suite2 = new Suite('isChinese("ss扁担宽，板凳长，扁担想绑在板凳上。")');
+const suite2 = new Suite('isChinese("ss扁担宽，板凳长，扁担想绑在板凳上。")');
 
-// suite2
-//   .add("is_chinese_napi string", () => {
-//     is_chinese(asciiStart);
-//   })
-//   .add("is_chinese_napi buffer", () => {
-//     is_chinese_buffer(asciiStartBuffer);
-//   })
-//   .add("is_chinese_js", () => {
-//     is_chinese_js(asciiStart);
-//   })
-//   .on("cycle", function (event) {
-//     console.info(String(event.target));
-//   })
-//   .on("complete", function () {
-//     console.info(`${this.name} bench suite: Fastest is ${chalk.green(this.filter("fastest").map("name"))}`);
-//   })
-//   .run();
+suite2
+  .add("is_chinese_napi string", () => {
+    is_chinese(asciiStart);
+  })
+  .add("is_chinese_napi buffer", () => {
+    is_chinese_buffer(asciiStartBuffer);
+  })
+  .add("is_chinese_js", () => {
+    is_chinese_js(asciiStart);
+  })
+  .on("cycle", function (event) {
+    console.info(String(event.target));
+  })
+  .on("complete", function () {
+    console.info(`${this.name} bench suite: Fastest is ${chalk.green(this.filter("fastest").map("name"))}`);
+  })
+  .run();
 
-// const suite3 = new Suite('isChinese("扁担宽，板凳长，扁担想绑在板凳上。ss")');
+const suite3 = new Suite('isChinese("扁担宽，板凳长，扁担想绑在板凳上。ss")');
 
-// suite3
-//   .add("is_chinese_napi string", () => {
-//     is_chinese(asciiEnd);
-//   })
-//   .add("is_chinese_napi buffer", () => {
-//     is_chinese_buffer(asciiEndBuffer);
-//   })
-//   .add("is_chinese_js", () => {
-//     is_chinese_js(asciiEnd);
-//   })
-//   .on("cycle", function (event) {
-//     console.info(String(event.target));
-//   })
-//   .on("complete", function () {
-//     console.info(`${this.name} bench suite: Fastest is ${chalk.green(this.filter("fastest").map("name"))}`);
-//   })
-//   .run();
+suite3
+  .add("is_chinese_napi string", () => {
+    is_chinese(asciiEnd);
+  })
+  .add("is_chinese_napi buffer", () => {
+    is_chinese_buffer(asciiEndBuffer);
+  })
+  .add("is_chinese_js", () => {
+    is_chinese_js(asciiEnd);
+  })
+  .on("cycle", function (event) {
+    console.info(String(event.target));
+  })
+  .on("complete", function () {
+    console.info(`${this.name} bench suite: Fastest is ${chalk.green(this.filter("fastest").map("name"))}`);
+  })
+  .run();
 
 const suite4 = new Suite("isChinese(chars1000) true");
 
@@ -115,9 +115,3 @@ suite5
     console.info(`${this.name} bench suite: Fastest is ${chalk.green(this.filter("fastest").map("name"))}`);
   })
   .run();
-// .add('isChinese(chars1000) true', function () {
-//   isChinese(chars1000);
-// })
-// .add('isChinese(chars1000WithS) false', function () {
-//   isChinese(chars1000WithS);
-// })

@@ -72,13 +72,13 @@ fn has_printable_ascii_in_rest_slice(bytes: &[u8]) -> bool {
 
     #[cfg(target_feature = "avx2")]
     match reminder {
-        16 => u8x16::from_slice_unaligned(&bytes[bytes.len() - 8..])
+        16 => u8x16::from_slice_unaligned(&bytes[bytes.len() - 16..])
             .le(u8x16::splat(127))
             .any(),
         8 => u8x8::from_slice_unaligned(&bytes[bytes.len() - 8..])
             .le(u8x8::splat(127))
             .any(),
-        4 => u8x4::from_slice_unaligned(&bytes[bytes.len() - 8..])
+        4 => u8x4::from_slice_unaligned(&bytes[bytes.len() - 4..])
             .le(u8x4::splat(127))
             .any(),
         _ => bytes[bytes.len() - reminder..].iter().any(|ch| *ch <= 127),
