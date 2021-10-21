@@ -124,42 +124,38 @@ fn is_printable_ascii_fallback(bytes: &[u8]) -> bool {
 #[inline]
 fn is_chinese_char(ch: char) -> bool {
     match ch as u32 {
-        0x4e00..=0x9fff => return true,
-        0xff0c => {
-            return true;
-        }
-        0x3002 => {
-            return true;
-        }
-        0x3400..=0x4dbf => return true, // CJK Unified Ideographs Extension A
-        0x20000..=0x2a6df => return true, // CJK Unified Ideographs Extension B
-        0x2a700..=0x2b73f => return true, // CJK Unified Ideographs Extension C
-        0x2b740..=0x2b81f => return true, // CJK Unified Ideographs Extension D
-        0x2b820..=0x2ceaf => return true, // CJK Unified Ideographs Extension E
-        0x3300..=0x33ff => return true, // https://en.wikipedia.org/wiki/CJK_Compatibility
-        0xfe30..=0xfe4f => return true, // https://en.wikipedia.org/wiki/CJK_Compatibility_Forms
-        0xf900..=0xfaff => return true, // https://en.wikipedia.org/wiki/CJK_Compatibility_Ideographs
-        0x2f800..=0x2fa1f => return true, // https://en.wikipedia.org/wiki/CJK_Compatibility_Ideographs_Supplement
-        0x00b7 => return true,            //·
-        0x00d7 => return true,            //×
-        0x2014 => return true,            //—
-        0x2018 => return true,            //‘
-        0x2019 => return true,            //’
-        0x201c => return true,            //“
-        0x201d => return true,            //”
-        0x2026 => return true,            //…
-        0x3001 => return true,            //、
-        0x300a => return true,            //《
-        0x300b => return true,            //》
-        0x300e => return true,            //『
-        0x300f => return true,            //』
-        0x3010 => return true,            //【
-        0x3011 => return true,            //】
-        0xff01 => return true,            //！
-        0xff08 => return true,            //（
-        0xff09 => return true,            //）
-        0xff1a => return true,            //：
-        0xff1f => return true,            //？
+        0x4e00..=0x9fff => true,
+        0xff0c => true,            //，
+        0x3002 => true,            //。
+        0x3400..=0x4dbf => true,   // CJK Unified Ideographs Extension A
+        0x20000..=0x2a6df => true, // CJK Unified Ideographs Extension B
+        0x2a700..=0x2b73f => true, // CJK Unified Ideographs Extension C
+        0x2b740..=0x2b81f => true, // CJK Unified Ideographs Extension D
+        0x2b820..=0x2ceaf => true, // CJK Unified Ideographs Extension E
+        0x3300..=0x33ff => true,   // https://en.wikipedia.org/wiki/CJK_Compatibility
+        0xfe30..=0xfe4f => true,   // https://en.wikipedia.org/wiki/CJK_Compatibility_Forms
+        0xf900..=0xfaff => true,   // https://en.wikipedia.org/wiki/CJK_Compatibility_Ideographs
+        0x2f800..=0x2fa1f => true, // https://en.wikipedia.org/wiki/CJK_Compatibility_Ideographs_Supplement
+        0x00b7 => true,            //·
+        0x00d7 => true,            //×
+        0x2014 => true,            //—
+        0x2018 => true,            //‘
+        0x2019 => true,            //’
+        0x201c => true,            //“
+        0x201d => true,            //”
+        0x2026 => true,            //…
+        0x3001 => true,            //、
+        0x300a => true,            //《
+        0x300b => true,            //》
+        0x300e => true,            //『
+        0x300f => true,            //』
+        0x3010 => true,            //【
+        0x3011 => true,            //】
+        0xff01 => true,            //！
+        0xff08 => true,            //（
+        0xff09 => true,            //）
+        0xff1a => true,            //：
+        0xff1f => true,            //？
         _ => false,
     }
 }
