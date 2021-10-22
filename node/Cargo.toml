@@ -1,0 +1,21 @@
+[package]
+edition = "2018"
+name = "is_chinese_napi"
+version = "0.0.0"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+napi = "1"
+napi-derive = "1"
+is_chinese={path="../"}
+
+[build-dependencies]
+napi-build = "1"
+
+[profile.release]
+lto = true
+
+[target.'cfg(all(target_arch = "x86_64", not(target_env = "musl")))'.dependencies]
+mimalloc = {version = "0.1"}

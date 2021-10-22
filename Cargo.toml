@@ -16,3 +16,8 @@ criterion = "0.3"
 [[bench]]
 name = "my_benchmark"
 harness = false
+
+[profile.release]
+lto=true
+opt_level=3
+codegen_units=1
